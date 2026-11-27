@@ -143,6 +143,15 @@ open /Applications/YZ.app
 
 **运行前提**：系统 `python3`（`xcode-select --install` 即可，不用完整 Xcode）；生成 AI 草稿额外需要 `dsh 0.2.1-rc.5` 和一个兼容 Chat Completions 的模型网关。
 
+**装一次就够，以后原地更新。** 程序坞里只会有这一个 YZ 图标，迭代不会新增程序包：
+
+```bash
+bash scripts/install.sh          # 首次：装到 /Applications 并固定程序坞
+bash scripts/update-in-place.sh  # 以后：编译进已装的那一份，图标不动
+```
+
+`update-in-place.sh` 只替换 `Contents/MacOS/YZ` 和 `Resources/`，再重新签名——bundle ID、钥匙串授权、本机工单、程序坞位置全部保留。加 `--check` 只看不动，加版本号 `0.4.1 7` 顺便升级。
+
 **不想装？** 源码就在仓库里，`bash build.sh` 自己编译；或者 fork 走做你自己的版本，随便改（别拿去卖就行）。
 
 > 详细版说明（每页操作、命令行、数据位置、卸载）见 [docs/releases/v0.4.0.md](docs/releases/v0.4.0.md)。
