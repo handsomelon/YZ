@@ -258,40 +258,65 @@ struct Workspace: View {
             VStack(alignment: .leading, spacing: 18) {
                 title("来源与登录", "使用系统默认浏览器。登录状态由浏览器和平台管理。")
                 HStack {
-                    Button("扫描公开社区") { apply(["community-scan", "all"]) }.buttonStyle(.borderedProminent).disabled(busy)
+                    Button("扫描公开社区") { apply(["community-scan", "all"]) }
+                        .buttonStyle(.borderedProminent)
+                        .disabled(busy)
                     Text("Blender、UE 与 Godot").foregroundStyle(.secondary)
                 }
-                if !feedStates.isEmpty {
-                    GroupBox("社区值守") {
-                        VStack(alignment: .leading, spacing: 7) {
-                            ForEach(feedStates, id: \.source) { state in
-                                Text(state.label + " · " + (state.error ?? "读取 " + String(state.read ?? 0) + " 条，匹配 " + String(state.matched ?? 0) + " 条"))
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                            }
-                        }.padding(5)
-                    }
+                if !feedStates.isEmpty { feedStatus }
+                ForEach(sourceGroups, id: \.self) { group in
+                    sourceGroup(group)
                 }
-                ForEach(Array(Set(sources.map { $0[1] })).sorted(), id: \.self) { group in
-                    GroupBox(group) {
-                        VStack(spacing: 0) {
-                            ForEach(sources.filter { $0[1] == group }, id: \.first) { site in
-                                HStack {
-                                    VStack(alignment: .leading, spacing: 3) {
-                                        Text(site[0]).fontWeight(.medium)
-                                        Text(site[4]).font(.caption).foregroundStyle(.secondary)
-                                    }
-                                    Spacer()
-                                    if let url = URL(string: site[2]) { Link("打开站点", destination: url) }
-                                    if let url = URL(string: site[3]) { Link("登录或后台", destination: url).padding(.leading, 12) }
-                                }.padding(10)
-                                Divider()
-                            }
-                        }
-                    }
-                }
-            }.padding(24)
+            }
+            .padding(24)
         }
     }
+
+    var feedStatus: some View {
+        GroupBox("社区值守") {
+            VStack(alignment: .leading, spacing: 7) {
+                ForEach(feedStates, id: \.source) { state in
+                    Text("\(state.label) · \(state.summary)")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }
+            .padding(5)
+        }
+    }
+
+    var sourceGroups: [String] {
+        Array(Set(sources.map { $0[1] })).sorted()
+    }
+
+    func sourceGroup(_ group: String) -> some View {
+        let sites = sources.filter { $0[1] == group }
+        return GroupBox(group) {
+            VStack(spacing: 0) {
+                ForEach(sites, id: \.first) { site in
+                    sourceRow(site)
+                    Divider()
+                }
+            }
+        }
+    }
+
+    func sourceRow(_ site: [String]) -> some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 3) {
+                Text(site[0]).fontWeight(.medium)
+                Text(site[4]).font(.caption).foregroundStyle(.secondary)
+            }
+            Spacer()
+            if let url = URL(string: site[2]) {
+                Link("打开站点", destination: url)
+            }
+            if let url = URL(string: site[3]) {
+                Link("登录或后台", destination: url).padding(.leading, 12)
+            }
+        }
+        .padding(10)
+    }
+
     var pipelines: some View {
         VStack(alignment: .leading, spacing: 18) {
             title("执行管线", "按案件跟踪从进件到交付的步骤。")
@@ -474,6 +499,10 @@ struct WatchState: Decodable {
         let source, label: String
         let read, matched, new: Int?
         let error: String?
+
+        var summary: String {
+            error ?? "读取 \(read ?? 0) 条，匹配 \(matched ?? 0) 条"
+        }
     }
 }
 
