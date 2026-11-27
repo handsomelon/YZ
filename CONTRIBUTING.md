@@ -1,8 +1,8 @@
 # 一起做 YZ
 
-YZ 是 MIT 许可的开源项目。**任何人都可以自由使用、修改、分发、拿去卖** —— 只要保留版权声明。
+YZ 是**源码开放**项目。谁都可以看、可以改、可以免费使用、可以用它去挣钱。**但不能把它本身包装起来卖。**
 
-这个项目本身也是站在别人的开源工作上做的：SwiftUI、Python 标准库、Node.js 内置模块，以及 [DeepSeek Harness](https://deepseek.com) 的插件体系。所以没什么好藏着掖着的。**一起把工具做好，各自去挣钱。**
+这个项目自己也是站在别人肩上：SwiftUI、Python 标准库、Node.js 内置模块，以及 [DeepSeek Harness](https://deepseek.com) 的插件体系。所以没什么好藏着掖着的。**一起把工具做好，各自靠手艺去挣钱。**
 
 ---
 
@@ -10,7 +10,9 @@ YZ 是 MIT 许可的开源项目。**任何人都可以自由使用、修改、�
 
 ### 1. 直接用，不用问
 
-MIT 允许你 fork 走、改成自己的版本、甚至包装成产品卖，**不需要通知我，也不需要给我分钱**。
+fork 走、改成自己的版本，**不需要通知我，也不需要给我分钱**。
+
+只有一条别踩：**别把这个软件本身包装起来卖**（换名字、换图标、塞进付费课、挂网盘卖都算）。这不是防你挣钱——用它接单、做咨询、开课收费都可以——是防有人拿免费的东西去骗不懂的人。详见 [LICENSE](LICENSE)。
 
 ```bash
 git clone https://github.com/handsomelon/YZ.git
@@ -62,12 +64,12 @@ git push origin fix/rss-timeout
 
 不想等、想法和我不同、或者你想做个完全不同的方向？
 
-**直接 fork，随便改，自己发版。** 你的仓库你做主，不用说服任何人。这是开源的意思，不是客套话。
+**直接 fork，随便改，自己发版。** 你的仓库你做主，不用说服任何人。这是源码开放的意思，不是客套话。
 
 常见做法：
 
 - **跟进主版本**：`git remote add upstream https://github.com/handsomelon/YZ.git`，然后 `git pull upstream main`
-- **只拿自己要的部分**：复制 `workbench.py` 或 `dsh-plugin/index.mjs` 到自己项目，保留 MIT 版权声明即可
+- **只拿自己要的部分**：复制 `workbench.py` 或 `dsh-plugin/index.mjs` 到自己项目，保留版权声明即可（同样不能拿去当商品卖）
 - **做发行版**：改 `Info.plist` 的 bundle ID 和 `CFBundleShortVersionString`，跑 `scripts/package-release.sh`，发你自己的 Release
 
 ---
@@ -110,13 +112,13 @@ cp dsh-plugin/index.mjs ~/Library/Application\ Support/yizhi/dsh/yz-workbench-v4
 
 这个项目走的是**先免费学到东西，觉得值再支持**的路子。
 
-### 免费的部分（永远免费，MIT 保证）
+### 免费的部分（永远免费，许可证保证）
 
 - 全部源码，完整功能
 - 说明书、发布包、构建脚本
 - Issue 里提问题，有人答
 
-MIT 许可证在法理上就锁死了这件事：**现在免费给你的东西，任何人以后都不能收回去。** 就算我哪天想改成收费版，你今天拿到的这版和它的所有衍生版本，照样自由。
+许可证里明确写了：**已发布的版本永远适用发布时的条款，不会追溯变更。** 就算哪天我想做收费版，你今天拿到的这一版，以及按它分发的副本，照样能一直用下去。
 
 ### 自愿支持的部分
 
@@ -150,4 +152,4 @@ MIT 许可证在法理上就锁死了这件事：**现在免费给你的东西�
 
 ---
 
-*MIT License · 见 [LICENSE](LICENSE)*
+*YZ 源码开放许可证 · 见 [LICENSE](LICENSE)*
