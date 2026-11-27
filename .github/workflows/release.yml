@@ -1,0 +1,68 @@
+name: Release YZ for macOS
+
+on:
+  push:
+    branches: [main]
+    paths: [Info.plist]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: yz-macos-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: github.ref == 'refs/heads/main'
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+
+      - name: Inspect version and existing release
+        id: version
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          version="$(/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' Info.plist)"
+          [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          tag="v$version"
+          record="$(gh api --paginate "repos/$GITHUB_REPOSITORY/releases?per_page=100" \
+            --jq ".[] | select(.tag_name == \"$tag\") | [.draft, .target_commitish] | @tsv")"
+          state=new
+          if [[ "$record" == false$'\t'* ]]; then
+            state=published
+          elif [[ "$record" == true$'\t'"$GITHUB_SHA" ]]; then
+            state=draft
+          elif [[ -n "$record" ]]; then
+            echo "::error::There is already a draft for this version at a different commit"
+            exit 1
+          fi
+          printf 'tag=%s\nstate=%s\n' "$tag" "$state" >> "$GITHUB_OUTPUT"
+
+      - name: Build and verify Apple silicon package
+        if: steps.version.outputs.state != 'published'
+        run: bash scripts/package-release.sh
+
+      - name: Publish version and checksum
+        if: steps.version.outputs.state != 'published'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.version.outputs.tag }}
+          RELEASE_STATE: ${{ steps.version.outputs.state }}
+        run: |
+          set -euo pipefail
+          asset="build/release/YZ-${RELEASE_TAG#v}-macOS-$(uname -m).zip"
+          test -s "$asset" && test -s "$asset.sha256"
+          if [[ "$RELEASE_STATE" == new ]]; then
+            gh release create "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+              --draft --title "YZ ${RELEASE_TAG#v}" --notes "Apple silicon · macOS 14+ · ad-hoc signed, not notarized."
+          fi
+          gh release upload "$RELEASE_TAG" "$asset" "$asset.sha256" --repo "$GITHUB_REPOSITORY" --clobber
+          gh release edit "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --draft=false
+          gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --json url,isDraft,assets

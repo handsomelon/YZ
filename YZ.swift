@@ -336,7 +336,10 @@ struct Workspace: View {
                 }.padding(8)
             }
             if let projectRepository, let url = URL(string: "https://github.com/" + projectRepository) {
-                Link("打开 YZ 项目仓库", destination: url)
+                HStack {
+                    Link("打开 YZ 项目仓库", destination: url)
+                    Link("查看发布版本", destination: url.appending(path: "releases"))
+                }
             }
             Button("打开 DeepSeek Harness") { openApp("DeepSeek Harness") }
             Text("在 DSH 对话里可以扫描、读取 YZ 工单，并把当前模型写的诊断存为待审草稿。").foregroundStyle(.secondary)

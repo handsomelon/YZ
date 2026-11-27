@@ -19,7 +19,7 @@ class Server(BaseHTTPRequestHandler):
         if not names:
             self.reply({"role": "assistant", "content": "Yizhi fixture"}, "stop")
             return
-        if "yz_save_draft" not in names:
+        if not {"yz_save_draft", "yz_release_status"}.issubset(names):
             error.append("yizhi tools missing")
         delta = {"role": "assistant"}
         if len(requests) == 1:

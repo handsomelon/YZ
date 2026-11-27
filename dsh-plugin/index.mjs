@@ -2,7 +2,7 @@ import { execFile } from "node:child_process";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import { promisify } from "node:util";
-import { access, mkdir, rename, writeFile } from "node:fs/promises";
+import { access, mkdir, readFile, rename, writeFile } from "node:fs/promises";
 
 const exec = promisify(execFile);
 const defaultRepo = "KhronosGroup/glTF-Blender-IO";
@@ -56,6 +56,22 @@ export function apply(ctx, config = {}) {
   register("yz_status", "查看 YZ 应用和 GitHub 只读值守状态。", {}, [], async () => {
     await access(script);
     return { installed: true, watcher, remoteWrites: false };
+  });
+  register("yz_release_status", "查看 YZ 已登记的 GitHub 仓库与最近发布版本。只读，不触发发布。", {}, [], async () => {
+    let project;
+    try {
+      project = JSON.parse(await readFile(join(state, "project-repo.json"), "utf8"));
+    } catch (error) {
+      if (error.code === "ENOENT") return { configured: false };
+      throw error;
+    }
+    if (!/^[A-Za-z0-9-]+\/YZ$/i.test(project.repository)) throw new Error("YZ 项目仓库配置无效");
+    const result = await exec("/usr/bin/env", ["gh", "release", "list", "--repo", project.repository,
+      "--limit", "5", "--json", "tagName,isDraft,publishedAt,isLatest"], {
+      timeout: 15000, maxBuffer: 128 * 1024,
+      env: { PATH: "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin", HOME: homedir(), GH_PROMPT_DISABLED: "1" },
+    });
+    return { configured: true, repository: project.repository, releases: JSON.parse(result.stdout) };
   });
   register("yz_scan", "扫描指定公开 GitHub 仓库的 Issue，匹配结果进入 YZ 本机工单。", {
     repository: { type: "string", description: "仓库 owner/repo，省略时使用 Blender glTF" },

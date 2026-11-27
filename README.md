@@ -13,7 +13,7 @@ YZ 沿用原安装的 macOS bundle ID、钥匙串和本地数据目录，以保�
 
 ## DSH 对话桥
 
-日常 DSH Desktop 配置已挂载 `dsh-plugin/index.mjs`。对话模型可用 `yz_status`、`yz_scan`、`yz_list`、`yz_read`、`yz_save_draft`。它们使用已安装应用的工作台核心和同一份本机数据库。直接用 DSH 对话保存草稿时使用该会话已经选择的模型，App 无需再配置一把模型密钥。
+日常 DSH Desktop 配置已挂载 `dsh-plugin/index.mjs`。对话模型可用 `yz_status`、`yz_scan`、`yz_list`、`yz_read`、`yz_save_draft`、`yz_release_status`。它们使用已安装应用的工作台核心和同一份本机数据库。直接用 DSH 对话保存草稿时使用该会话已经选择的模型，App 无需再配置一把模型密钥。
 
 配置中的 `watch: true` 让本地 DeepSeek Harness 桌面应用在打开期间每 15 分钟轮询公开 GitHub 议题，以及 Blender Artists、Blender 开发者论坛、UE Character & Animation、UE Question 和 Godot 的五路 RSS。YZ 每 30 秒刷新本机工单和上次扫描状态。工作台部署仅使用本地桌面 DSH。
 
@@ -23,3 +23,10 @@ YZ 沿用原安装的 macOS bundle ID、钥匙串和本地数据目录，以保�
 ## 社区来源
 
 桌面 DSH 工具 `yz_community_scan` 支持按来源或全部扫描。APP 的「来源与登录」提供手动扫描按钮，并展示各源读取、匹配和错误状态。社区主题和 GitHub 议题使用同一份 SQLite 工单账本，UE 的两个订阅按同一站点主题 ID 去重。自动筛选使用最近 14 天的 RSS 条目和 CG 技术关键词，每路最多纳入 5 条候选。候选是否仍需帮助由人工看原帖确认，回复从原帖人工发布。
+
+
+## 自动发布
+
+修改 `Info.plist` 的 `CFBundleShortVersionString`（例如 `0.4.1`），同时递增 `CFBundleVersion`，把版本提交推到 `main`。GitHub Actions 编译 Apple silicon macOS ZIP，生成 SHA-256 校验文件，并发布对应版本。普通开发提交不会发布。已有正式版本会跳过，构建失败可重跑同版本。发布包采用临时签名，适合私有测试，公开分发需要 Developer ID 签名和公证。
+
+本地 DSH 可以参与项目准备，发布由仓库工作流完成。YZ「模型与设置」显示项目仓库和 Releases 入口（在本地账本目录登记 `project-repo.json` 后）。
