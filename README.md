@@ -2,6 +2,8 @@
 
 YZ 是原生 macOS CG 工作台。源码包包含 SwiftUI 界面、Python 工单核心、来源目录、图标和构建脚本。
 
+**安装包下载**：[Releases · v0.4.0](https://github.com/handsomelon/YZ/releases/tag/v0.4.0)（Apple silicon · macOS 14+ · ad-hoc 签名，未公证）。下载、安装、首次放行、使用说明与已知限制见 [`docs/releases/v0.4.0.md`](docs/releases/v0.4.0.md)。
+
 在装有 Xcode Command Line Tools 的 Mac 上运行 `bash build.sh`，生成 `build/YZ.app` 并做本机临时签名。运行需要 PATH 上的 Python 3。生成诊断草稿还需要 `dsh 0.2.1-rc.5`，以及兼容流式 Chat Completions 的模型网关。模型设置页用 macOS 钥匙串保存密钥。
 
 应用默认扫描 Blender glTF 导出库。你也可以输入其他公开 GitHub 仓库，或者粘贴原帖链接。GitHub Issue 可以进入工单，其他站点的链接保存在本机的原帖清单。来源页用默认浏览器打开站点与登录入口。登录是否保留取决于浏览器的会话和平台登录策略。执行页可以打开已安装的精神和尺度，生产工序在后续接入。
