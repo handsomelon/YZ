@@ -1,0 +1,156 @@
+[
+  [
+    "GitHub",
+    "项目与技术社区",
+    "https://github.com",
+    "https://github.com/login",
+    "公开 Issue 已接入"
+  ],
+  [
+    "Blender glTF Issues",
+    "项目与技术社区",
+    "https://github.com/KhronosGroup/glTF-Blender-IO/issues",
+    "https://github.com/login",
+    "公开 Issue 已接入"
+  ],
+  [
+    "Blender Artists",
+    "项目与技术社区",
+    "https://blenderartists.org/c/support/modeling/37",
+    "https://blenderartists.org/login",
+    "公开 RSS 已接入"
+  ],
+  [
+    "Blender DevTalk",
+    "项目与技术社区",
+    "https://forum.blender.org",
+    "https://forum.blender.org/login",
+    "公开 RSS 已接入"
+  ],
+  [
+    "Blender Stack Exchange",
+    "项目与技术社区",
+    "https://blender.stackexchange.com/questions",
+    "https://blender.stackexchange.com/users/login",
+    "公开答复须人工原创"
+  ],
+  [
+    "Epic Developer Community",
+    "项目与技术社区",
+    "https://forums.unrealengine.com",
+    "https://www.epicgames.com/id/login",
+    "公开 RSS 已接入"
+  ],
+  [
+    "ComfyUI Issues",
+    "项目与技术社区",
+    "https://github.com/Comfy-Org/ComfyUI/issues",
+    "https://github.com/login",
+    "可用 GitHub 扫描"
+  ],
+  [
+    "Godot Forum",
+    "项目与技术社区",
+    "https://forum.godotengine.org",
+    "https://forum.godotengine.org/login",
+    "公开 RSS 已接入"
+  ],
+  [
+    "小红书",
+    "国内社区与视频",
+    "https://www.xiaohongshu.com",
+    "https://creator.xiaohongshu.com",
+    "手动收件"
+  ],
+  [
+    "百度贴吧",
+    "国内社区与视频",
+    "https://tieba.baidu.com",
+    "https://tieba.baidu.com",
+    "在网站登录，手动收件"
+  ],
+  [
+    "哔哩哔哩",
+    "国内社区与视频",
+    "https://www.bilibili.com",
+    "https://member.bilibili.com",
+    "手动收件"
+  ],
+  [
+    "抖音",
+    "国内社区与视频",
+    "https://www.douyin.com",
+    "https://creator.douyin.com",
+    "手动收件"
+  ],
+  [
+    "视频号",
+    "国内社区与视频",
+    "https://channels.weixin.qq.com",
+    "https://channels.weixin.qq.com",
+    "在网站登录"
+  ],
+  [
+    "YouTube",
+    "国际视频与社区",
+    "https://www.youtube.com",
+    "https://studio.youtube.com",
+    "创作者入口"
+  ],
+  [
+    "Reddit",
+    "国际视频与社区",
+    "https://www.reddit.com/r/blenderhelp/",
+    "https://www.reddit.com/login/",
+    "原帖与手动收件"
+  ],
+  [
+    "Discord",
+    "国际视频与社区",
+    "https://discord.com/channels/@me",
+    "https://discord.com/login",
+    "群内入口，按群权限使用"
+  ],
+  [
+    "Patreon",
+    "商品与收款",
+    "https://www.patreon.com",
+    "https://www.patreon.com/login",
+    "会员与付费内容候选"
+  ],
+  [
+    "Payhip",
+    "商品与收款",
+    "https://payhip.com",
+    "https://payhip.com/auth/login",
+    "数字商品与课程候选"
+  ],
+  [
+    "Fab",
+    "商品与收款",
+    "https://www.fab.com",
+    "https://www.fab.com/portal",
+    "CG 商品候选"
+  ],
+  [
+    "Superhive",
+    "商品与收款",
+    "https://superhivemarket.com",
+    "https://superhivemarket.com",
+    "Blender 商品候选"
+  ],
+  [
+    "微信支付",
+    "商品与收款",
+    "https://pay.weixin.qq.com",
+    "https://pay.weixin.qq.com",
+    "商户入口"
+  ],
+  [
+    "支付宝商家",
+    "商品与收款",
+    "https://b.alipay.com",
+    "https://b.alipay.com",
+    "商户入口"
+  ]
+]

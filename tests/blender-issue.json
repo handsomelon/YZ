@@ -1,0 +1,5 @@
+{
+  "number": 17,
+  "title": "Roughness differs after Blender glTF export",
+  "body": "Blender 4.5, GLB export. Material looks glossy in my game engine. The roughness texture is connected to Principled BSDF. Which color space and packing should I check?"
+}
